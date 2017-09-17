@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "656609313998",
+    "firebase_url": "https://snackquest-df226.firebaseio.com",
+    "project_id": "snackquest-df226",
+    "storage_bucket": "snackquest-df226.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656609313998:android:11b4f0b70b1d8803",
+        "android_client_info": {
+          "package_name": "com.example.android.snackquest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656609313998-lgoq0iaaj0c5d86ln5au39tj8k7kbdqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpPtOkfP0TPr3vuisnwAZ0Eg-nyhS9JPk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656609313998-lgoq0iaaj0c5d86ln5au39tj8k7kbdqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
