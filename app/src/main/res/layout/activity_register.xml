@@ -7,8 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.snackquest.MainActivity">
 
-    <LinearLayout
+    <TabWidget
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TabWidget>
+
+    <LinearLayout
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -29,23 +35,11 @@
             android:hint="password"
             android:layout_margin="15dp"/>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"/>
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="cadastrar"/>
-
-        </LinearLayout>
+            android:text="Registrar Usuário"/>
 
         <TextView
             android:id="@+id/error_message"

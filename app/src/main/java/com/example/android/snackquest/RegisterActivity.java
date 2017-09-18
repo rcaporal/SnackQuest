@@ -11,7 +11,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.register_button)
     Button mRegisterButton;
@@ -25,20 +25,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToRegisterActivity();
+                backToLoginActivity();
             }
         });
-
     }
 
-    private void goToRegisterActivity(){
-        Intent goToRegisterActivity = new Intent(this, RegisterActivity.class);
-        startActivity(goToRegisterActivity);
+    private void backToLoginActivity(){
+        Intent backToLoginActivity = new Intent(this, MainActivity.class);
+        startActivity(backToLoginActivity);
+        finish();
     }
 }
