@@ -49,15 +49,19 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mEmail.getText().equals("") && !mPassword.getText().equals("")){
-                    login();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), R.string.empty_fields_error, Toast.LENGTH_SHORT).show();
-                }
+                    setUser();
             }
         });
 
+    }
+
+    private void setUser() {
+        if(!(mPassword.getText().toString().equals("")) && !(mEmail.getText().toString().equals(""))){
+            user = new User(mEmail.getText().toString(), mPassword.getText().toString());
+            login();
+        }else {
+            Toast.makeText(getApplicationContext(), R.string.empty_fields_error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void goToRegisterActivity(){
@@ -73,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(){
         auth = FireBaseConfiguration.getFirebaseAuth();
-        auth.signInWithEmailAndPassword(String.valueOf(mEmail.getText()), String.valueOf(mPassword.getText()))
+        auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">SnackQuest</string>
-    <string name="login_error">Usuário ou senha incorreto</string>
+    <string name="login_error">Usuário ou senha incorreto(s)</string>
     <string name="empty_fields_error">Campos inválidos</string>
+    <string name="logoff_message">Saindo da sua conta...</string>
+    <string name="new_account_label">Cria nova conta</string>
+
 
 
 </resources>
