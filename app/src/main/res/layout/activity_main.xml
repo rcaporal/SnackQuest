@@ -42,20 +42,39 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"/>
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="cadastrar"/>
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Não tem cadastro? "
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/register_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Click aqui"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:linksClickable="true"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

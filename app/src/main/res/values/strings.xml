@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">SnackQuest</string>
-    <string name="login_error">Usuário ou senha incorreto(s)</string>
-    <string name="empty_fields_error">Campos inválidos</string>
+    <string name="login_error">Usuário ou senha incorretos</string>
+    <string name="empty_fields_error">Os campos não podem ser vazios</string>
     <string name="logoff_message">Saindo da sua conta...</string>
     <string name="new_account_label">Cria nova conta</string>
-
+    <string name="password_mismatch">As senhas não correspondem</string>
+    <string name="save_user_success">Usuário criado com sucesso</string>
+    <string name="weak_password">A senha deve ter no mínimo 8 caracteres</string>
+    <string name="user_cosilion">O email informado já está sendo usado</string>
+    <string name="invalid_credentials">Campos inválidos</string>
+    <string name="create_user_error">Erro ao criar novo usuário</string>
 
 
 </resources>

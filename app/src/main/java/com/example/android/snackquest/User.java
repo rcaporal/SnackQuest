@@ -1,16 +1,12 @@
 package com.example.android.snackquest;
 
-import android.text.Editable;
-
-import java.util.Collection;
-import java.util.Set;
-
 /**
  * Created by caporal on 25/10/17.
  */
 
 public class User {
 
+    private String id;
     private String name;
     private String password;
     private String email;
@@ -50,10 +46,12 @@ public class User {
         this.password = password;
     }
 
-    private void tet(){
-
+    public String getId() {
+        return id;
     }
 
-
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }

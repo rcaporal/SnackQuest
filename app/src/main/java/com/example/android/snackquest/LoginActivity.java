@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.register_button)
-    Button mRegisterButton;
+    TextView mRegisterButton;
 
     @BindView(R.id.email)
     EditText mEmail;
