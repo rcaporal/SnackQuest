@@ -10,6 +10,8 @@
     <string name="user_cosilion">O email informado já está sendo usado</string>
     <string name="invalid_credentials">Campos inválidos</string>
     <string name="create_user_error">Erro ao criar novo usuário</string>
+    <string name="loading_recipe_list_error">Erro ao carregar lista de receitas</string>
+    <string name="on_recipe_click">Você clicou em</string>
 
 
 </resources>

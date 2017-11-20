@@ -6,32 +6,34 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.snackquest.HomeActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/welcome_text"
+        <LinearLayout
+            android:id="@+id/home_linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="Aqui aparecem suas receitas!"
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/logoff_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recipe_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            android:text="sair" />
+            <Button
+                android:id="@+id/logoff_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="sair" />
 
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>
