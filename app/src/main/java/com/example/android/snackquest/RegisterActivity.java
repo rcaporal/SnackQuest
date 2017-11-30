@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,10 +31,14 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.password_confirm)
     EditText mPasswordConfirm;
 
+    @BindView(R.id.toolbar)
+    android.support.v7.widget.Toolbar mToolbar;
+
     private User user;
     private UserRepository userRepository;
     private UserPreferences userPreferences;
     private Base64Custom base64Custom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +46,26 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(LoginActivity.class.getSimpleName());
+
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUser();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void backToLoginActivity(){

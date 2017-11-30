@@ -12,6 +12,16 @@
     <string name="create_user_error">Erro ao criar novo usuário</string>
     <string name="loading_recipe_list_error">Erro ao carregar lista de receitas</string>
     <string name="on_recipe_click">Você clicou em</string>
+    <string name="logout">sair</string>
+    <string name="login">entrar</string>
+    <string name="not_have_acc">Não tem cadastro?</string>
+    <string name="click_here">Clique aqui</string>
+    <string name="email">email</string>
+    <string name="password">senha</string>
+    <string name="new_user_label">Cadastrar novo usuário</string>
+    <string name="name">nome</string>
+    <string name="confirm_password">confirmar senha</string>
+    <string name="confirm_password_button">Registrar Usuário</string>
 
 
 </resources>

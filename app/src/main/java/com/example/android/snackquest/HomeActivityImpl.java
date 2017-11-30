@@ -53,8 +53,8 @@ public class HomeActivityImpl implements HomePresenter{
         mAdapter = new RecipeAdapter(mView.getActivityFromView(), new RecipeAdapter.OnRecipeClickListener() {
             @Override
             public void onItemRecipeClick(Recipe recipe) {
-                //Toast.makeText(mActivity, mActivity.getResources().getString(R.string.on_recipe_click) + recipe.getName(), Toast.LENGTH_SHORT).show();
-                mView.showSnackBar(mActivity.getResources().getString(R.string.on_recipe_click));
+                Toast.makeText(mActivity, mActivity.getResources().getString(R.string.on_recipe_click) + recipe.getName(), Toast.LENGTH_SHORT).show();
+                //mView.showSnackBar(mActivity.getResources().getString(R.string.on_recipe_click));
             }
         });
 
