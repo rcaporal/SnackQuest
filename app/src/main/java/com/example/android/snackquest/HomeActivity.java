@@ -39,6 +39,9 @@ public class HomeActivity extends AppCompatActivity implements HomePresenter.Vie
         mPresenter.setView(this);
         mPresenter.configAdapter();
 
+        UserPreferences userPreferences = new UserPreferences(getApplicationContext());
+        String name = userPreferences.getUserName();
+
         mLogoffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

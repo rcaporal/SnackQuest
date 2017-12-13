@@ -10,7 +10,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by caporal on 28/10/17.
@@ -19,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 public class UserRepository {
 
     private DatabaseReference databaseReference;
-    private User user;
+    private final User user;
     private Context context;
 
     public UserRepository(Context context,User user) {
@@ -64,10 +67,38 @@ public class UserRepository {
         });
     }
 
+    public void getUserByEmail(final OnGetUserByEmail onGetUserByEmail){
+        databaseReference = FireBaseConfiguration.getDatabase();
+        databaseReference.orderByChild("user").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    User userLoop = data.getValue(User.class);
+                    userLoop.setId(data.getKey());
+                    if(userLoop.getEmail().equals(user)){
+                        onGetUserByEmail.onGetUserByEmailIsSuccessful(userLoop);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                onGetUserByEmail.onGetUserByEmailIsFailed(context.getResources().getString(R.string.database_error));
+            }
+        });
+    }
+
 
 
     public interface OnCreateUserWithEmail{
         void onCreateUserWithEmailIsSuccessful(User user);
         void onCreateUserWithEmailIsFailed(String errorMessage);
+    }
+
+    public interface OnGetUserByEmail{
+        void onGetUserByEmailIsSuccessful(User user);
+        void onGetUserByEmailIsFailed(String errorMessage);
     }
 }

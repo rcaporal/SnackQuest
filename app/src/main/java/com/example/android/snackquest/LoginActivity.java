@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private User user;
+    private UserPreferences userPreferences;
+    private UserRepository userRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,19 @@ public class LoginActivity extends AppCompatActivity {
                     setUser();
             }
         });
+        userPreferences = new UserPreferences(getApplicationContext());
+
+        if(userPreferences.getUserID() != null){
+            goToHomeActivity();
+        }
+
 
     }
 
     private void setUser() {
         if(!(mPassword.getText().toString().equals("")) && !(mEmail.getText().toString().equals(""))){
             user = new User(mEmail.getText().toString(), mPassword.getText().toString());
-            login();
+            login(user);
         }else {
             Toast.makeText(getApplicationContext(), R.string.empty_fields_error, Toast.LENGTH_SHORT).show();
         }
@@ -76,14 +84,29 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void login(){
+    private void login(final User user){
         auth = FireBaseConfiguration.getFirebaseAuth();
         auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            goToHomeActivity();
+                            userRepository = new UserRepository(getApplicationContext(), user);
+                            userRepository.getUserByEmail(new UserRepository.OnGetUserByEmail() {
+                                @Override
+                                public void onGetUserByEmailIsSuccessful(User user) {
+                                    userPreferences.saveUserPreferences(user.getId(), user.getName());
+                                    goToHomeActivity();
+                                }
+
+                                @Override
+                                public void onGetUserByEmailIsFailed(String errorMessage) {
+
+                                }
+                            });
+
+                            String id = userPreferences.getUserID();
+                            String name = userPreferences.getUserName();
                         }else {
                             Toast.makeText(getApplicationContext(), R.string.login_error, Toast.LENGTH_SHORT).show();
                         }

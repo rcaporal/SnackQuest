@@ -22,6 +22,7 @@
     <string name="name">nome</string>
     <string name="confirm_password">confirmar senha</string>
     <string name="confirm_password_button">Registrar Usuário</string>
+    <string name="database_error">Erro ao acessar o banco de dados</string>
 
 
 </resources>
