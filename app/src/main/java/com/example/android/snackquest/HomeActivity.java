@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,9 +41,6 @@ public class HomeActivity extends AppCompatActivity implements HomePresenter.Vie
         mPresenter.setView(this);
         mPresenter.configAdapter();
 
-        UserPreferences userPreferences = new UserPreferences(getApplicationContext());
-        String name = userPreferences.getUserName();
-
         mLogoffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +50,9 @@ public class HomeActivity extends AppCompatActivity implements HomePresenter.Vie
     }
 
     private void logOff() {
+        FirebaseAuth.getInstance().signOut();
+        UserPreferences userPreferences = new UserPreferences(getApplicationContext());
+        userPreferences.removeUserPreferences();
         Toast.makeText(getApplicationContext(), R.string.logoff_message, Toast.LENGTH_SHORT).show();
         goToLoginActivity();
     }

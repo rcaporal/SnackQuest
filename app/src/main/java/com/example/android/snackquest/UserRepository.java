@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
@@ -28,18 +29,19 @@ public class UserRepository {
     public UserRepository(Context context,User user) {
         this.user = user;
         this.context = context;
+        this.databaseReference = FirebaseDatabase.getInstance().getReference().child("user");
     }
 
-    public void createUserWithEmail(final OnCreateUserWithEmail onCreateUserWithEmail){
+    public void createUserWithEmail(String password, final OnCreateUserWithEmail onCreateUserWithEmail){
         FirebaseAuth firebaseAuth = FireBaseConfiguration.getFirebaseAuth();
-        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    databaseReference = FireBaseConfiguration.getDatabase();
-                    databaseReference.child("user").child(user.getId()).setValue(user)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    user.setId(id);
+                    databaseReference.child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
@@ -67,25 +69,18 @@ public class UserRepository {
         });
     }
 
-    public void getUserByEmail(final OnGetUserByEmail onGetUserByEmail){
-        databaseReference = FireBaseConfiguration.getDatabase();
-        databaseReference.orderByChild("user").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getUserById(final String uid, final OnGetUserById onGetUserById){
+        databaseReference.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    User userLoop = data.getValue(User.class);
-                    userLoop.setId(data.getKey());
-                    if(userLoop.getEmail().equals(user)){
-                        onGetUserByEmail.onGetUserByEmailIsSuccessful(userLoop);
-
-                    }
-                }
+                User user = dataSnapshot.getValue(User.class);
+                onGetUserById.onGetUserByEmailIsSuccessful(user);
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                onGetUserByEmail.onGetUserByEmailIsFailed(context.getResources().getString(R.string.database_error));
+                onGetUserById.onGetUserByEmailIsFailed(context.getResources().getString(R.string.database_error));
             }
         });
     }
@@ -97,7 +92,7 @@ public class UserRepository {
         void onCreateUserWithEmailIsFailed(String errorMessage);
     }
 
-    public interface OnGetUserByEmail{
+    public interface OnGetUserById {
         void onGetUserByEmailIsSuccessful(User user);
         void onGetUserByEmailIsFailed(String errorMessage);
     }

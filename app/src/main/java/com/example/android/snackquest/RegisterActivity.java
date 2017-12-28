@@ -75,11 +75,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createUser(){
-        user = new User(mName.getText().toString(),mEmail.getText().toString(), mPassword.getText().toString());
+        user = new User(mName.getText().toString(),mEmail.getText().toString());
         if(isValidUser()){
-            user.setId(base64Custom.encodeBase64Custom(user.getEmail()));
             userRepository = new UserRepository(RegisterActivity.this, user);
-            userRepository.createUserWithEmail(new UserRepository.OnCreateUserWithEmail() {
+            userRepository.createUserWithEmail(mPassword.getText().toString(), new UserRepository.OnCreateUserWithEmail() {
                 @Override
                 public void onCreateUserWithEmailIsSuccessful(User user) {
                     Toast.makeText(RegisterActivity.this, R.string.save_user_success, Toast.LENGTH_SHORT).show();
@@ -96,10 +95,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private Boolean isValidUser(){
-        if(user.getEmail().equals("") || user.getPassword().equals("") || user.getName().equals("")){
+        if(user.getEmail().equals("") || mPassword.getText().toString().equals("") || user.getName().equals("")){
             Toast.makeText(RegisterActivity.this, R.string.empty_fields_error, Toast.LENGTH_SHORT).show();
             return false;
-        }else if(!user.getPassword().equals(mPasswordConfirm.getText().toString())){
+        }else if(!mPassword.getText().toString().equals(mPasswordConfirm.getText().toString())){
             Toast.makeText(RegisterActivity.this, R.string.password_mismatch, Toast.LENGTH_SHORT).show();
             return false;
         }

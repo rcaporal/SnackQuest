@@ -57,17 +57,22 @@ public class LoginActivity extends AppCompatActivity {
         });
         userPreferences = new UserPreferences(getApplicationContext());
 
-        if(userPreferences.getUserID() != null){
+        if(userPreferences.hasLoggedUser()){
             goToHomeActivity();
         }
+
+//        //FIREBASE HAS LOGGED USER
+//        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+//            goToHomeActivity();
+//        }
 
 
     }
 
     private void setUser() {
         if(!(mPassword.getText().toString().equals("")) && !(mEmail.getText().toString().equals(""))){
-            user = new User(mEmail.getText().toString(), mPassword.getText().toString());
-            login(user);
+            user = new User(mEmail.getText().toString());
+            login(user, mPassword.getText().toString());
         }else {
             Toast.makeText(getApplicationContext(), R.string.empty_fields_error, Toast.LENGTH_SHORT).show();
         }
@@ -84,18 +89,18 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void login(final User user){
+    private void login(final User user, String password){
         auth = FireBaseConfiguration.getFirebaseAuth();
-        auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+        auth.signInWithEmailAndPassword(user.getEmail(), password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             userRepository = new UserRepository(getApplicationContext(), user);
-                            userRepository.getUserByEmail(new UserRepository.OnGetUserByEmail() {
+                            userRepository.getUserById(auth.getCurrentUser().getUid(), new UserRepository.OnGetUserById() {
                                 @Override
                                 public void onGetUserByEmailIsSuccessful(User user) {
-                                    userPreferences.saveUserPreferences(user.getId(), user.getName());
+                                    userPreferences.saveUserPreferences(user);
                                     goToHomeActivity();
                                 }
 
@@ -104,9 +109,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 }
                             });
-
-                            String id = userPreferences.getUserID();
-                            String name = userPreferences.getUserName();
                         }else {
                             Toast.makeText(getApplicationContext(), R.string.login_error, Toast.LENGTH_SHORT).show();
                         }

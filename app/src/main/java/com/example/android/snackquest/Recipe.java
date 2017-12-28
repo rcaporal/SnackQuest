@@ -17,6 +17,8 @@ class Recipe implements Parcelable {
     private int difficulty;
     private ArrayList<String> ingredients;
 
+    public Recipe(){};
+
     public Recipe(String name, String time){
         this.name = name;
         this.time = time;
